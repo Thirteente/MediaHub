@@ -52,6 +52,12 @@ ffmpeg -i bbb_sunflower_1080p_30fps_normal.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -
 
 `/media/big-buck-bunny.mp4` 由本地同源服务器提供。下载的归档及 MP4 保存在本地，Git 跟踪片库信息和有授权的剧照。
 
+- **《辛特尔》（Sintel，2010）**，Blender Studio 的奇幻动画短片，也可以搜索「寻龙记」。将官方 544p 原版 MP4 保存为 `public/media/sintel.mp4`，站内路径为 `/media/sintel.mp4`。画面为 1280 × 544，H.264 视频、AAC 音频，时长约 14:48。封面和背景分别取自约 3:10 与 5:40，提取单帧保存为 JPEG。正片和剧照署名 Blender Studio，按素材页的 CC BY 4.0 使用。[授权与素材](https://studio.blender.org/projects/api/assets/1191/?site_context=featured_artwork) · [官方下载](https://studio.blender.org/download-source/files/47/47a954682dbd4f064da7e78ad6c2d32f044a3e85/47a954682dbd4f064da7e78ad6c2d32f044a3e85.mp4)
+
+## 检查已准备的媒体
+
+在仓库根目录运行 `npm run media:check`。脚本按片库逐部、逐集检查本地媒体路径，列出缺失和空文件。所有文件就绪时退出码为 `0`，有缺项时退出码为 `1`。复查文件编码、时长和跳转见[下载和本地验证](#下载和本地验证)。
+
 ## 后续收集
 
 - **经典内容**优先从版权方、开放电影项目或档案馆选片。逐部、逐集记录作品和集数、来源页、原始媒体地址、许可与署名、可使用范围和最后校验日期。海报、字幕也按各自的来源和许可核对。
@@ -81,3 +87,5 @@ ffmpeg -i bbb_sunflower_1080p_30fps_normal.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -
 开发机通过 Wi-Fi 网卡的局域网地址请求三个文件，均收到 `206 Partial Content`、`Content-Type: video/mp4` 和与实际字节数一致的 `Content-Range`。本机生产构建和预览通过，三个文件的非零起点范围请求同样收到 `206`。Windows Chrome 157 在桌面和 390 px 模拟手机视口都能播放、暂停、跳到中段并继续播放三个样片。生产预览中模拟媒体请求中断，错误提示和重试恢复通过。手机实机仍需在家庭 Wi-Fi 下检查页面访问、开播和拖动。
 
 2026 年 11 月 26 日新增《大雄兔》。1080p 本地文件为 253839659 字节，非零起点的媒体范围请求返回 HTTP `206`。Windows Chrome 157 在 1440、390、320 px 下均完成分类、别名搜索、剧照加载、开播、跳转到中段，以及查看许可和音轨改动。[扩库 Issue](https://github.com/Thirteente/MediaHub/issues/5)
+
+2026 年 11 月 26 日加入《辛特尔》。本地 MP4 为 224702298 字节，与官方下载大小一致，FFmpeg 全片音视频解码通过。局域网媒体地址的非零起点范围请求返回 `206`。Windows Chrome 157 的桌面和 390 px 模拟手机视口通过分类、别名搜索、剧照、播放、跳转到中段和授权链接检查。`npm run media:check` 报告 5/5 就绪，另外用临时片库验证了缺失和空文件的非零退出码。[扩库 Issue #9](https://github.com/Thirteente/MediaHub/issues/9)

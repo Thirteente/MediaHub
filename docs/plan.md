@@ -56,6 +56,7 @@
 | [接通网页播放器](https://github.com/Thirteente/MediaHub/issues/3) | 已实现，浏览器验证通过 | 原生播放、换集、续播、全屏和失败重试已验证。[网页验收记录](web-mvp.md#验收记录) |
 | [完成家庭局域网验收](https://github.com/Thirteente/MediaHub/issues/4) | 已通过 | Windows 11 / Chrome 157 端到端通过，iPhone 17 播放、跳转、全屏、换集和修复后的拼音搜索通过。[家庭局域网验收](web-mvp.md#家庭局域网验收) |
 | [扩充可播片库](https://github.com/Thirteente/MediaHub/issues/5) | 已加入《大雄兔》 | 新增第二部可播电影、影片资料、剧照与授权出处。[扩充片源](media-sources.md#扩充片源) |
-| [v0.2 手机投屏](https://github.com/Thirteente/MediaHub/milestone/2) | 确认电视或盒子 | 手机测试方为 iPhone 17。拿到接收设备型号后，先验证媒体交接及控制，再接入 UI。[投屏方案](casting.md) |
+| [扩充开放片库并建立片源校验流程](https://github.com/Thirteente/MediaHub/issues/9) | 已完成 | 《辛特尔》已加入本地片库，媒体齐备检查、完整解码、范围请求和浏览器播放通过。[片源验收](media-sources.md#验收记录) |
+| [v0.2 手机投屏](https://github.com/Thirteente/MediaHub/milestone/2) | 暂缓 | 恢复时先确认电视或盒子型号，再用 iPhone 17 验证媒体交接和控制。[投屏方案](casting.md) |
 
-v0.1 已完成验收。下一项是确认投屏用的电视或盒子型号。启动方式见 [README](../README.md#启动试播)，结果归入[网页验收记录](web-mvp.md#验收记录)和[片源验收记录](media-sources.md#验收记录)。
+v0.1 已完成验收。可播片库和本地正片检查流程已更新。启动方式见 [README](../README.md#启动试播)，结果归入[网页验收记录](web-mvp.md#验收记录)和[片源验收记录](media-sources.md#验收记录)。

@@ -86,5 +86,26 @@
       "sourceUrl": "https://peach.blender.org/download/",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
     }
+  },
+  {
+    "id": "sintel",
+    "type": "movie",
+    "title": "辛特尔",
+    "originalTitle": "Sintel",
+    "aliases": ["寻龙记"],
+    "summary": "少女辛特尔救起一条受伤的小龙。在小龙被带走后，她踏上寻找同伴的旅程。",
+    "year": 2010,
+    "genre": "奇幻动画",
+    "durationMinutes": 15,
+    "poster": "/posters/sintel.jpg",
+    "backdrop": "/posters/sintel-backdrop.jpg",
+    "artworkCredit": "https://studio.blender.org/projects/api/assets/1191/?site_context=featured_artwork",
+    "media": {
+      "url": "/media/sintel.mp4",
+      "mimeType": "video/mp4",
+      "credit": "Blender Studio",
+      "sourceUrl": "https://studio.blender.org/projects/api/assets/1191/?site_context=featured_artwork",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+    }
   }
 ]

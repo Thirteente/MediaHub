@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "media:check": "node scripts/check-media.mjs",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview"
   },
