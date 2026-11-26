@@ -4,6 +4,7 @@ type Media = {
   url: string
   mimeType: string
   credit: string
+  changes?: string
   sourceUrl: string
   licenseUrl: string
 }

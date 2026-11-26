@@ -64,5 +64,27 @@
         ]
       }
     ]
+  },
+  {
+    "id": "big-buck-bunny",
+    "type": "movie",
+    "title": "大雄兔",
+    "originalTitle": "Big Buck Bunny",
+    "aliases": ["大兔子", "大兔巴克"],
+    "summary": "树林里一只性情温和的大兔子遇上三个爱捣蛋的小家伙，决定给它们一点教训。",
+    "year": 2008,
+    "genre": "动画",
+    "durationMinutes": 11,
+    "poster": "/posters/big-buck-bunny.jpg",
+    "backdrop": "/posters/big-buck-bunny-backdrop.jpg",
+    "artworkCredit": "https://peach.blender.org/about/",
+    "media": {
+      "url": "/media/big-buck-bunny.mp4",
+      "mimeType": "video/mp4",
+      "credit": "Blender Foundation",
+      "changes": "音轨转为 AAC，视频画面沿用原版。",
+      "sourceUrl": "https://peach.blender.org/download/",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+    }
   }
 ]

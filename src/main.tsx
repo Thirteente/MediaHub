@@ -237,7 +237,7 @@ function TitlePage() {
           <p className="summary">{work.summary}</p>
           <TitleActions work={work} libraryPath={libraryPath} />
           {work.artworkCredit && (
-            <p className="artwork-credit"><a href={work.artworkCredit}>剧照 · Blender Studio</a></p>
+            <p className="artwork-credit"><a href={work.artworkCredit}>剧照来源与授权</a></p>
           )}
         </div>
       </section>
@@ -310,8 +310,7 @@ function App() {
         </Routes>
       </main>
       <footer className="shell site-footer">
-        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-        <a href="https://studio.blender.org/films/">部分剧照与视频由 Blender Studio 提供</a>
+        <a href="https://studio.blender.org/films/">剧照与视频源自 Blender 开放电影项目</a>
       </footer>
     </>
   )

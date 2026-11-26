@@ -117,6 +117,7 @@ export function Player({
         {content.media.credit} · <a href={content.media.sourceUrl}>片源</a> ·{' '}
         <a href={content.media.licenseUrl}>授权协议</a> ·{' '}
         <a href={content.media.url}>直接打开视频</a>
+        {content.media.changes && ` · ${content.media.changes}`}
       </p>
     </>
   )

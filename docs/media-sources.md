@@ -38,6 +38,20 @@ Move-Item -LiteralPath $mediaHubDownload -Destination 'public/media/tears-of-ste
 curl.exe --fail --range 0-63 --dump-header - --output NUL 'http://192.168.1.10:5173/media/tears-of-steel.mp4'
 ```
 
+## 扩充片源
+
+- **《大雄兔》（Big Buck Bunny，2008）**，Blender Foundation 的动画短片。当前使用官方 1080p 版，保留 H.264 画面，将第一个音轨从 MP3 转为 AAC，并将 MP4 索引移到文件开头。成品时长约 10:35，保存为 `public/media/big-buck-bunny.mp4`。页面标注音轨改动，授权为 CC BY 3.0，署名 Blender Foundation。封面和背景取自官方 320 × 180 版的约 6:07 与 1:38，提取单帧并保存为 JPEG。[官方项目与许可](https://peach.blender.org/about/) · [官方 1080p 下载](https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4.zip) · [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+解压官方 1080p 归档，在有 FFmpeg 的环境执行以下命令。
+
+```powershell
+ffmpeg -i bbb_sunflower_1080p_30fps_normal.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -c:a aac -b:a 192k -movflags +faststart public/media/big-buck-bunny.mp4
+```
+
+也可直接使用官方 320 × 180 H.264/AAC 原版进行试播。使用该版本时，按实际时长调整目录信息并移除播放页的音轨改动说明。[官方 320 × 180 下载](https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4.zip)
+
+`/media/big-buck-bunny.mp4` 由本地同源服务器提供。下载的归档及 MP4 保存在本地，Git 跟踪片库信息和有授权的剧照。
+
 ## 后续收集
 
 - **经典内容**优先从版权方、开放电影项目或档案馆选片。逐部、逐集记录作品和集数、来源页、原始媒体地址、许可与署名、可使用范围和最后校验日期。海报、字幕也按各自的来源和许可核对。
@@ -65,3 +79,5 @@ curl.exe --fail --range 0-63 --dump-header - --output NUL 'http://192.168.1.10:5
 | `caminandes-03.mp4` | 138945811 | 1920 × 1080 | 2:30 |
 
 开发机通过 Wi-Fi 网卡的局域网地址请求三个文件，均收到 `206 Partial Content`、`Content-Type: video/mp4` 和与实际字节数一致的 `Content-Range`。本机生产构建和预览通过，三个文件的非零起点范围请求同样收到 `206`。Windows Chrome 157 在桌面和 390 px 模拟手机视口都能播放、暂停、跳到中段并继续播放三个样片。生产预览中模拟媒体请求中断，错误提示和重试恢复通过。手机实机仍需在家庭 Wi-Fi 下检查页面访问、开播和拖动。
+
+2026 年 11 月 26 日新增《大雄兔》。1080p 本地文件为 253839659 字节，非零起点的媒体范围请求返回 HTTP `206`。Windows Chrome 157 在 1440、390、320 px 下均完成分类、别名搜索、剧照加载、开播、跳转到中段，以及查看许可和音轨改动。[扩库 Issue](https://github.com/Thirteente/MediaHub/issues/5)

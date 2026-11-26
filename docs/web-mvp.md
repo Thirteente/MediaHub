@@ -25,7 +25,7 @@ MediaHub 的第一版服务同一家庭网络内的手机和 PC。用一部电�
 | 电影 | 公共字段和 `media`。电影的作品 ID 同时是播放 ID。 |
 | 系列 | 公共字段和 `seasons`。每季有数字 `number` 和 `episodes`。 |
 | 单集 | `id`、数字 `number`、`title`、`media` 和可选的 `thumbnail`。集号沿用官方编号。 |
-| 媒体 | `url`、`mimeType` 和署名所需的 `credit`、`sourceUrl`、`licenseUrl`。首批统一为 `video/mp4`，使用同源 `/media/` 路径。 |
+| 媒体 | `url`、`mimeType` 和署名所需的 `credit`、`sourceUrl`、`licenseUrl`，转码或剪辑时可填 `changes`。首批统一为 `video/mp4`，使用同源 `/media/` 路径。 |
 
 | 条目 | 作品 ID | 播放 ID | 服务路径 |
 | --- | --- | --- | --- |
