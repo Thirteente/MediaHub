@@ -105,6 +105,14 @@ const categories = [
 function Library() {
   const [params, setParams] = useSearchParams()
   const query = params.get('q') ?? ''
+  const searchInput = useRef<HTMLInputElement>(null)
+  const composing = useRef(false)
+
+  useLayoutEffect(() => {
+    const input = searchInput.current
+    if (input && !composing.current && input.value !== query) input.value = query
+  }, [query])
+
   const type = params.get('type') ?? ''
   const activeType = categories.some((category) => category.value === type) ? type : ''
   const results = searchCatalog(query).filter((work) => !activeType || work.type === activeType)
@@ -134,8 +142,23 @@ function Library() {
             <label className="visually-hidden" htmlFor="search">搜索片名</label>
             <span className="search-mark" aria-hidden="true" />
             <input
-              id="search" type="search" placeholder="搜索片名" value={query}
-              onChange={(event) => updateParam('q', event.currentTarget.value)}
+              ref={searchInput}
+              id="search"
+              type="search"
+              placeholder="搜索片名"
+              defaultValue={query}
+              onCompositionStart={() => { composing.current = true }}
+              onCompositionEnd={(event) => {
+                composing.current = false
+                const value = event.currentTarget.value
+                if (value !== query) updateParam('q', value)
+              }}
+              onChange={(event) => {
+                // Let the input method own provisional text until the user chooses a candidate.
+                if (composing.current || (event.nativeEvent as InputEvent).isComposing) return
+                const value = event.currentTarget.value
+                if (value !== query) updateParam('q', value)
+              }}
             />
           </div>
         </div>

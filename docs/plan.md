@@ -54,8 +54,8 @@
 | [建立家庭试播片库](https://github.com/Thirteente/MediaHub/issues/1) | 已实现，待汇总手机结果 | 三份原始 MP4 已下载并检查编码及范围响应。[片源验收记录](media-sources.md#验收记录) |
 | [实现片库搜索、详情与选集](https://github.com/Thirteente/MediaHub/issues/2) | 已实现，浏览器验证通过 | 搜索、分类、详情、选集和返回状态已验证。[网页验收记录](web-mvp.md#验收记录) |
 | [接通网页播放器](https://github.com/Thirteente/MediaHub/issues/3) | 已实现，浏览器验证通过 | 原生播放、换集、续播、全屏和失败重试已验证。[网页验收记录](web-mvp.md#验收记录) |
-| [完成家庭局域网验收](https://github.com/Thirteente/MediaHub/issues/4) | PC 通过，待手机实测 | 已记录 Windows 11 / Chrome 157 的端到端结果，手机结果归入同一份记录。[家庭局域网验收](web-mvp.md#家庭局域网验收) |
+| [完成家庭局域网验收](https://github.com/Thirteente/MediaHub/issues/4) | PC 通过，待 iPhone 搜索复测 | iPhone 17 播放、跳转、全屏和换集正常，拼音搜索已修复并通过浏览器模拟，待真机复测。[家庭局域网验收](web-mvp.md#家庭局域网验收) |
 | [扩充可播片库](https://github.com/Thirteente/MediaHub/issues/5) | 已加入《大雄兔》 | 新增第二部可播电影、影片资料、剧照与授权出处。[扩充片源](media-sources.md#扩充片源) |
 | v0.2 手机投屏 | 待确认实机设备 | 在实际手机和电视上先验证媒体交接及控制，再接入 UI。[投屏方案](casting.md) |
 
-v0.1 的交付验收仍待补齐家庭手机的设备及实测记录。启动方式见 [README](../README.md#启动试播)，结果归入[网页验收记录](web-mvp.md#验收记录)和[片源验收记录](media-sources.md#验收记录)。
+v0.1 的交付验收待 iPhone 17 复测拼音搜索。启动方式见 [README](../README.md#启动试播)，结果归入[网页验收记录](web-mvp.md#验收记录)和[片源验收记录](media-sources.md#验收记录)。
