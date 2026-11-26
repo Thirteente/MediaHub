@@ -75,3 +75,14 @@ MediaHub 的第一版服务同一家庭网络内的手机和 PC。用一部电�
 2026 年 11 月 26 日，根据首次试用反馈更新了推荐首页、分类、详情和播放页布局。剧照继续使用官方正片截图，新增《Tears of Steel》约 6:58 和《Llamigos》约 1:53 的背景图，以及《Gran Dillama》约 0:27 的单集缩略图。图片提取并缩放为 JPEG，署名 Blender Studio，沿用 CC BY 4.0。[电影素材](https://studio.blender.org/projects/api/assets/42/?site_context=featured_artwork) · [第 2 集素材](https://studio.blender.org/projects/api/assets/2363/?site_context=featured_artwork) · [第 3 集素材](https://studio.blender.org/projects/api/assets/2417/?site_context=featured_artwork)
 
 Windows Chrome 157 在 1440、390 和 320 px 下复测了推荐入口、分类和搜索组合、返回状态恢复、播放后刷新续播、普通播放从零开始、换集与当前集高亮。桌面全屏及媒体错误后重试通过。用户反馈此前试播播放正常，设备信息尚未记录。
+
+### 家庭局域网验收
+
+2026 年 11 月 26 日，用开发机的 Wi-Fi 地址访问当前站点。两端使用同一站点地址，实机浏览器结果记录如下。[验收 Issue #4](https://github.com/Thirteente/MediaHub/issues/4)
+
+| 设备 | 实测结果 |
+| --- | --- |
+| 开发 PC · Windows 11 家庭版 26200 · Chrome 157.0.8103.80 | 通过 Wi-Fi 地址访问站点，中英文搜索、详情刷新和返回恢复搜索通过。两部电影和两集动画均能开播、暂停、跳到中段并继续。桌面全屏、第 2 集切至第 3 集、刷新播放页及首页续播通过。 |
+| 手机真机 | 待确认手机型号及浏览器，记录同一 Wi-Fi 下访问、搜索、开播、跳转、全屏和换集结果。 |
+
+同次生产构建通过。
