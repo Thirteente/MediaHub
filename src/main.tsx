@@ -4,7 +4,7 @@ import { HashRouter, Link, Route, Routes, useLocation, useParams, useSearchParam
 import { contentById, orderedSeasons, searchCatalog, workById, works } from './catalog'
 import type { Playable, Work } from './catalog'
 import { Player } from './Player'
-import { readProgress } from './progress'
+import { listProgress, readProgress } from './progress'
 import './styles.css'
 
 function titlePath(id: string) {
@@ -70,28 +70,43 @@ function Featured({ work }: { work: Work }) {
 }
 
 function ContinueWatching() {
-  const [recent, setRecent] = useState(readProgress)
-  useEffect(() => setRecent(readProgress()), [])
-  const content = recent && contentById.get(recent.contentId)
-  if (!recent || !content) return null
+  const [items, setItems] = useState(listProgress)
+  useEffect(() => {
+    const refresh = () => setItems(listProgress())
+    refresh()
+    window.addEventListener('storage', refresh)
+    return () => window.removeEventListener('storage', refresh)
+  }, [])
 
-  const percent = Math.floor((recent.currentTime / recent.duration) * 100)
-  const minutes = Math.floor(recent.currentTime / 60)
-  const seconds = String(Math.floor(recent.currentTime % 60)).padStart(2, '0')
-  const image = content.episode?.thumbnail || content.work.poster
+  if (items.length === 0) return null
 
   return (
     <section className="shelf" aria-labelledby="recent-title">
       <h2 id="recent-title">继续观看</h2>
-      <Link className="recent-card" to={watchPath(content.id)} state={{ resume: true }}>
-        <div className="cover">{image && <img src={image} alt="" />}</div>
-        <div className="recent-copy">
-          <strong>{content.work.title}{content.episode && ` · 第 ${content.episode.number} 集`}</strong>
-          <span className="meta">已播放 {minutes}:{seconds}</span>
-          <progress aria-label="观看进度" value={percent} max={100} />
-        </div>
-        <span className="play-mark" aria-hidden="true" />
-      </Link>
+      <ul className="recent-list">
+        {items.map((recent) => {
+          const content = contentById.get(recent.contentId)
+          if (!content) return null
+
+          const minutes = Math.floor(recent.currentTime / 60)
+          const seconds = String(Math.floor(recent.currentTime % 60)).padStart(2, '0')
+          const image = content.episode?.thumbnail || content.work.poster
+
+          return (
+            <li key={content.id}>
+              <Link className="recent-card" to={watchPath(content.id)} state={{ resume: true }}>
+                <div className="cover">{image && <img src={image} alt="" />}</div>
+                <div className="recent-copy">
+                  <strong>{content.work.title}{content.episode && ` · 第 ${content.episode.number} 集`}</strong>
+                  <span className="meta">已播放 {minutes}:{seconds}</span>
+                  <progress aria-label="观看进度" value={recent.currentTime} max={recent.duration} />
+                </div>
+                <span className="play-mark" aria-hidden="true" />
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
     </section>
   )
 }
@@ -273,8 +288,7 @@ function Watch({ content }: { content: Playable }) {
   const libraryPath = useLibraryPath()
   const { state } = useLocation()
   const title = content.episode?.title ?? content.work.title
-  const recent = state?.resume === true ? readProgress() : null
-  const resumeAt = recent?.contentId === content.id ? recent.currentTime : 0
+  const resumeAt = state?.resume === true ? readProgress(content.id)?.currentTime ?? 0 : 0
 
   return (
     <>
