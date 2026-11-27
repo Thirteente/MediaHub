@@ -50,6 +50,7 @@ button { cursor: pointer; }
   border-inline-start: 0.62em solid currentColor;
 }
 .brand-mark::before { font-size: 0.8rem; color: #181511; margin-inline-start: 2px; }
+.header-nav { display: flex; gap: clamp(0.85rem, 3vw, 2rem); }
 .header-link {
   display: grid;
   min-height: 4.35rem;
@@ -130,6 +131,9 @@ h3 { font-size: 1.08rem; }
 .button-primary { background: var(--accent); border-color: var(--accent); color: #1c160d; }
 .button-primary:hover { background: #ffda93; }
 .button-quiet { background: #1c1e25c9; }
+.watchlist-control { display: grid; gap: 0.5rem; justify-items: start; }
+.watchlist-control [role="alert"] { font-size: 0.875rem; color: #ffc2b8; }
+.watchlist-button[aria-pressed="true"] { border-color: #94723f; background: #2b241a; color: var(--accent); }
 .featured-detail h1 { font-size: clamp(2rem, 5vw, 3.8rem); }
 .artwork-credit { color: var(--muted); font-size: 0.75rem; text-underline-offset: 0.2em; }
 
@@ -321,7 +325,8 @@ video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 0.65re
 }
 
 @media (max-width: 38rem) {
-  .header-inner, .header-link { min-height: 3.55rem; }
+  .header-inner, .header-nav { display: flex; gap: clamp(0.85rem, 3vw, 2rem); }
+.header-link { min-height: 3.55rem; }
   .featured { align-items: end; min-height: 27rem; }
   .featured > .cover { inset: 0 0 27%; }
   .featured::after { background: linear-gradient(0deg, #161821 18%, #161821 29%, #161821e3 46%, #16182111 78%); }
@@ -331,7 +336,7 @@ video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 0.65re
   .search { width: 100%; }
   .work-grid { gap: 0.65rem; }
   .work-card-body { padding: 0.65rem; }
-  .work-card-body h3 { font-size: 0.94rem; }
+  .work-card-body :is(h2, h3) { font-size: 0.94rem; }
   .work-card-body .meta { font-size: 0.73rem; }
   .card-arrow { display: none; }
 }

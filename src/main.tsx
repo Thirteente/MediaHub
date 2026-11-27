@@ -5,6 +5,7 @@ import { contentById, orderedSeasons, searchCatalog, workById, works } from './c
 import type { Playable, Work } from './catalog'
 import { Player } from './Player'
 import { listProgress, readProgress } from './progress'
+import { readWatchlist, updateWatchlist } from './watchlist'
 import './styles.css'
 
 function titlePath(id: string) {
@@ -50,7 +51,27 @@ function TitleActions({ work, libraryPath }: { work: Work; libraryPath: string }
   )
 }
 
-function Featured({ work }: { work: Work }) {
+function WatchlistButton({
+  saved,
+  onToggle,
+}: {
+  saved: boolean
+  onToggle: () => boolean
+}) {
+  const [failed, setFailed] = useState(false)
+
+  return (
+    <div className="watchlist-control">
+      <button className="button button-quiet watchlist-button" type="button"
+        aria-label="想看" aria-pressed={saved} onClick={() => setFailed(!onToggle())}>
+        <span aria-hidden="true">{saved ? '✓ 已加入想看' : '＋ 加入想看'}</span>
+      </button>
+      {failed && <p role="alert">浏览器无法保存片单，请检查存储设置。</p>}
+    </div>
+  )
+}
+
+function Featured({ work, saved, toggle }: { work: Work; saved: boolean; toggle: () => boolean }) {
   return (
     <section className="featured" aria-labelledby="featured-title">
       <Cover work={work} backdrop />
@@ -63,6 +84,7 @@ function Featured({ work }: { work: Work }) {
         <div className="actions">
           <TitleActions work={work} libraryPath="/" />
           <Link className="button button-quiet" to={titlePath(work.id)}>影片详情</Link>
+          <WatchlistButton saved={saved} onToggle={toggle} />
         </div>
       </div>
     </section>
@@ -117,7 +139,60 @@ const categories = [
   { title: '剧集', value: 'series' },
 ]
 
-function Library() {
+function WorkGrid({
+  items,
+  libraryPath,
+  headingLevel = 'h3',
+}: {
+  items: Work[]
+  libraryPath: string
+  headingLevel?: 'h2' | 'h3'
+}) {
+  const Heading = headingLevel
+  return (
+    <ul className="work-grid">
+      {items.map((work) => (
+        <li key={work.id}>
+          <Link className="work-card" to={titlePath(work.id)} state={{ libraryPath }}>
+            <Cover work={work} />
+            <div className="work-card-body">
+              <div>
+                <Heading>{work.title}</Heading>
+                <WorkMeta work={work} />
+              </div>
+              <span className="card-arrow" aria-hidden="true">↗</span>
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function WatchlistPage({ savedIds }: { savedIds: string[] }) {
+  const items = savedIds.flatMap((id) => {
+    const work = workById.get(id)
+    return work ? [work] : []
+  })
+
+  return (
+    <section className="shelf" aria-labelledby="watchlist-title">
+      <div className="shelf-heading">
+        <h1 id="watchlist-title">想看</h1>
+      </div>
+      {items.length > 0 ? (
+        <WorkGrid items={items} libraryPath="/watchlist" headingLevel="h2" />
+      ) : (
+        <div className="empty">
+          <p>片单还是空的。打开影片详情，选择「加入想看」。</p>
+          <Link className="button" to="/">浏览片库</Link>
+        </div>
+      )}
+    </section>
+  )
+}
+
+function Library({ savedIds, toggle }: { savedIds: string[]; toggle: (id: string) => boolean }) {
   const [params, setParams] = useSearchParams()
   const query = params.get('q') ?? ''
   const searchInput = useRef<HTMLInputElement>(null)
@@ -144,7 +219,7 @@ function Library() {
 
   return (
     <>
-      {home && featured && <Featured work={featured} />}
+      {home && featured && <Featured key={featured.id} work={featured} saved={savedIds.includes(featured.id)} toggle={() => toggle(featured.id)} />}
       {home && <ContinueWatching />}
       <section className="shelf" aria-labelledby="catalog-title">
         <div className="shelf-heading">
@@ -194,22 +269,7 @@ function Library() {
             <button className="button" type="button" onClick={() => setParams({}, { replace: true })}>重置筛选</button>
           </div>
         ) : (
-          <ul className="work-grid">
-            {results.map((work) => (
-              <li key={work.id}>
-                <Link className="work-card" to={titlePath(work.id)} state={{ libraryPath }}>
-                  <Cover work={work} />
-                  <div className="work-card-body">
-                    <div>
-                      <h3>{work.title}</h3>
-                      <WorkMeta work={work} />
-                    </div>
-                    <span className="card-arrow" aria-hidden="true">↗</span>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <WorkGrid items={results} libraryPath={libraryPath} />
         )}
       </section>
     </>
@@ -256,7 +316,7 @@ function EpisodeList({ work, activeId }: { work: Extract<Work, { type: 'series' 
   )
 }
 
-function TitlePage() {
+function TitlePage({ savedIds, toggle }: { savedIds: string[]; toggle: (id: string) => boolean }) {
   const { workId } = useParams()
   const libraryPath = useLibraryPath()
   const work = workById.get(workId ?? '')
@@ -265,7 +325,7 @@ function TitlePage() {
 
   return (
     <>
-      <Link className="back" to={libraryPath}>← 返回片库</Link>
+      <Link className="back" to={libraryPath}>← {libraryPath === "/watchlist" ? "返回想看" : "返回片库"}</Link>
       <section className="featured featured-detail" aria-labelledby="detail-title">
         <Cover work={work} backdrop />
         <div className="featured-copy">
@@ -273,7 +333,10 @@ function TitlePage() {
           <h1 id="detail-title">{work.title}</h1>
           {work.title !== work.originalTitle && <p className="original-title">{work.originalTitle}</p>}
           <p className="summary">{work.summary}</p>
-          <TitleActions work={work} libraryPath={libraryPath} />
+          <div className="actions">
+            <TitleActions work={work} libraryPath={libraryPath} />
+            <WatchlistButton key={work.id} saved={savedIds.includes(work.id)} onToggle={() => toggle(work.id)} />
+          </div>
           {work.artworkCredit && (
             <p className="artwork-credit"><a href={work.artworkCredit}>剧照来源与授权</a></p>
           )}
@@ -324,6 +387,20 @@ function WatchPage() {
 function App() {
   const { pathname } = useLocation()
   const main = useRef<HTMLElement>(null)
+  const [savedIds, setSavedIds] = useState(readWatchlist)
+
+  useEffect(() => {
+    const refresh = () => setSavedIds(readWatchlist())
+    window.addEventListener('storage', refresh)
+    return () => window.removeEventListener('storage', refresh)
+  }, [])
+
+  function toggle(id: string) {
+    const next = updateWatchlist(id)
+    if (next === null) return false
+    setSavedIds(next)
+    return true
+  }
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
@@ -335,13 +412,17 @@ function App() {
       <header className="site-header">
         <div className="shell header-inner">
           <Link className="wordmark" to="/"><span className="brand-mark" aria-hidden="true" />Media<span>Hub</span></Link>
-          <nav aria-label="主导航"><Link className="header-link" to="/" aria-current={pathname === '/' ? 'page' : undefined}>片库</Link></nav>
+          <nav className="header-nav" aria-label="主导航">
+            <Link className="header-link" to="/" aria-current={pathname === '/' ? 'page' : undefined}>片库</Link>
+            <Link className="header-link" to="/watchlist" aria-current={pathname === '/watchlist' ? 'page' : undefined}>想看</Link>
+          </nav>
         </div>
       </header>
       <main className="shell" ref={main} tabIndex={-1}>
         <Routes>
-          <Route path="/" element={<Library />} />
-          <Route path="/title/:workId" element={<TitlePage />} />
+          <Route path="/" element={<Library savedIds={savedIds} toggle={toggle} />} />
+          <Route path="/watchlist" element={<WatchlistPage savedIds={savedIds} />} />
+          <Route path="/title/:workId" element={<TitlePage savedIds={savedIds} toggle={toggle} />} />
           <Route path="/watch/:contentId" element={<WatchPage />} />
           <Route path="*" element={<Missing title="找不到这个页面" />} />
         </Routes>

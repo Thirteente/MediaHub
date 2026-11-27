@@ -58,6 +58,7 @@
 | [扩充可播片库](https://github.com/Thirteente/MediaHub/issues/5) | 已加入《大雄兔》 | 新增第二部可播电影、影片资料、剧照与授权出处。[扩充片源](media-sources.md#扩充片源) |
 | [扩充开放片库并建立片源校验流程](https://github.com/Thirteente/MediaHub/issues/9) | 已完成 | 《辛特尔》已加入本地片库，媒体齐备检查、完整解码、范围请求和浏览器播放通过。[片源验收](media-sources.md#验收记录) |
 | [按影片和单集保留继续观看进度](https://github.com/Thirteente/MediaHub/issues/10) | 已完成 | 支持多条本机续播记录和旧数据迁移。[多部内容续播验收](web-mvp.md#多部内容续播) |
+| [添加本地想看片单](https://github.com/Thirteente/MediaHub/issues/11) | 已完成 | 支持收藏、取消、刷新保留、跨标签更新与返回片单。[片单验收](web-mvp.md#想看与片单) |
 | [v0.2 手机投屏](https://github.com/Thirteente/MediaHub/milestone/2) | 暂缓 | 恢复时先确认电视或盒子型号，再用 iPhone 17 验证媒体交接和控制。[投屏方案](casting.md) |
 
 v0.1 已完成验收。可播片库和本地正片检查流程已更新。启动方式见 [README](../README.md#启动试播)，结果归入[网页验收记录](web-mvp.md#验收记录)和[片源验收记录](media-sources.md#验收记录)。
