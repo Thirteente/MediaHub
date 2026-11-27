@@ -2,7 +2,7 @@
 
 MediaHub 是供自己和家人使用的影视网站。手机和 PC 共用片库，都能搜索、选集和播放。电视在后续版本中接收手机投屏。
 
-接下来优先接入可在 MediaHub 直接播放的在线片源。首个版本按家庭局域网使用规划。当前片库有《钢铁之泪》《大雄兔》《辛特尔》和《Caminandes》第 2、3 集，支持推荐片、分类筛选、片名搜索、选集和播放，同一浏览器可从首页继续观看多部未看完的影片或剧集，也能将整部作品加入「想看」片单。
+站内在线播放已接通。《钢铁之泪》《辛特尔》和《Caminandes》第 2、3 集由浏览器从 Blender Studio 播放。当前片库有《钢铁之泪》《大雄兔》《辛特尔》和《Caminandes》第 2、3 集，支持推荐片、分类筛选、片名搜索、选集和播放，同一浏览器可从首页继续观看多部未看完的影片或剧集，也能将整部作品加入「想看」片单。
 
 ## 开发文档
 
@@ -16,14 +16,13 @@ MediaHub 是供自己和家人使用的影视网站。手机和 PC 共用片库�
 
 ## 启动试播
 
-需要 Node.js 20.19+（20.x）或 22.12+。将[三份首批片源](docs/media-sources.md#首批片源)和[扩充片源](docs/media-sources.md#扩充片源)放到 `public/media/`，已有这些文件的机器可直接启动。
+需要 Node.js 20.19+（20.x）或 22.12+。启动站点后可直接看在线片源，本机无需预存正片。《大雄兔》使用[本地片源](docs/media-sources.md#扩充片源)。
 
 ```powershell
 npm.cmd ci
-npm.cmd run media:check
 npm.cmd run dev -- --host 0.0.0.0
 ```
 
 开发电脑可打开终端显示的 Local 地址。手机连到同一家庭 Wi‑Fi 后，打开与 Wi‑Fi 网卡对应的 Network 地址。在片库搜索「钢铁」，打开电影详情并播放。再回片库打开《Caminandes》，从第 2 集切到第 3 集。分别检查开播、暂停、跳转和全屏。若同网设备打不开页面，先确认所用地址、网络是否隔离设备，以及 Windows 防火墙是否允许可信家庭网络访问该端口。
 
-构建和预览可用 `npm.cmd run build` 和 `npm.cmd run preview`。生产构建会将本地样片复制到 `dist/media/`。
+可用 `npm.cmd run media:check` 检查在线片源与本地文件。构建和预览分别用 `npm.cmd run build` 和 `npm.cmd run preview`。如提供本地正片，构建时会将其复制到 `dist/media/`。

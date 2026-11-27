@@ -67,6 +67,7 @@
 | [扩充开放片库并建立片源校验流程](https://github.com/Thirteente/MediaHub/issues/9) | 已完成 | 《辛特尔》已加入本地片库，媒体齐备检查、完整解码、范围请求和浏览器播放通过。[片源验收](media-sources.md#验收记录) |
 | [按影片和单集保留继续观看进度](https://github.com/Thirteente/MediaHub/issues/10) | 已完成 | 支持多条本机续播记录和旧数据迁移。[多部内容续播验收](web-mvp.md#多部内容续播) |
 | [添加本地想看片单](https://github.com/Thirteente/MediaHub/issues/11) | 已完成 | 支持收藏、取消、刷新保留、跨标签更新与返回片单。[片单验收](web-mvp.md#想看与片单) |
+| [接入在线片源并验证站内播放](https://github.com/Thirteente/MediaHub/issues/12) | 已实现，待 iPhone 真机验收 | 两部电影、两集动画可直接播放。无本地视频的生产预览已通过桌面和手机模拟验收。[在线播放验收](media-sources.md#在线播放验收) |
 | [v0.2 手机投屏](https://github.com/Thirteente/MediaHub/milestone/2) | 暂缓 | 恢复时先确认电视或盒子型号，再用 iPhone 17 验证媒体交接和控制。[投屏方案](casting.md) |
 
-v0.1 已完成验收。接下来优先接入在线片源并验证站内播放。启动方式见 [README](../README.md#启动试播)，结果归入[网页验收记录](web-mvp.md#验收记录)和[片源验收记录](media-sources.md#验收记录)。
+v0.1 已完成验收。在线 MP4 已接入两部电影和两集动画，PC 与手机模拟视口通过，下一项是补 iPhone 17 真机验证。启动方式见 [README](../README.md#启动试播)，结果归入[网页验收记录](web-mvp.md#验收记录)和[片源验收记录](media-sources.md#验收记录)。

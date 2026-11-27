@@ -10,7 +10,7 @@
 
 2026 年 11 月 24 日，已核对上述三份正片的官方素材页均标注 **CC BY 4.0**，官方下载路径均对字节范围请求返回 HTTP `206` 和 `video/mp4`。本地下载、编码检查和设备验收状态见下方记录。站内保留第 2、3 集的原始编号。[CC BY 4.0 许可](https://creativecommons.org/licenses/by/4.0/)
 
-Blender Studio 播放器使用的媒体地址带有时效签名。收集时从上述官方下载入口取文件，站内播放和投屏使用 MediaHub 的稳定地址。播放页列出当前正片的片名、Blender Studio 署名、对应原始素材页和 CC BY 4.0 许可链接。保留随片版权和署名信息，如有转码或裁剪则标注改动。
+Blender Studio 播放器使用的媒体地址带有时效签名。下面的本地路径记录了 v0.1 试播方式。当前在线播放使用官方稳定 HTTPS 入口，浏览器播放时跟随重定向取得临时媒体地址。播放页列出当前正片的片名、Blender Studio 署名、对应原始素材页和 CC BY 4.0 许可链接。保留随片版权和署名信息，如有转码或裁剪则标注改动。
 
 ## 下载和本地验证
 
@@ -52,18 +52,22 @@ ffmpeg -i bbb_sunflower_1080p_30fps_normal.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -
 
 `/media/big-buck-bunny.mp4` 由本地同源服务器提供。下载的归档及 MP4 保存在本地，Git 跟踪片库信息和有授权的剧照。
 
-- **《辛特尔》（Sintel，2010）**，Blender Studio 的奇幻动画短片，也可以搜索「寻龙记」。将官方 544p 原版 MP4 保存为 `public/media/sintel.mp4`，站内路径为 `/media/sintel.mp4`。画面为 1280 × 544，H.264 视频、AAC 音频，时长约 14:48。封面和背景分别取自约 3:10 与 5:40，提取单帧保存为 JPEG。正片和剧照署名 Blender Studio，按素材页的 CC BY 4.0 使用。[授权与素材](https://studio.blender.org/projects/api/assets/1191/?site_context=featured_artwork) · [官方下载](https://studio.blender.org/download-source/files/47/47a954682dbd4f064da7e78ad6c2d32f044a3e85/47a954682dbd4f064da7e78ad6c2d32f044a3e85.mp4)
+- **《辛特尔》（Sintel，2010）**，Blender Studio 的奇幻动画短片，也可以搜索「寻龙记」。当前在线播放使用官方 544p 原版 MP4。早期本地样片存为 `public/media/sintel.mp4`。画面为 1280 × 544，H.264 视频、AAC 音频，时长约 14:48。封面和背景分别取自约 3:10 与 5:40，提取单帧保存为 JPEG。正片和剧照署名 Blender Studio，按素材页的 CC BY 4.0 使用。[授权与素材](https://studio.blender.org/projects/api/assets/1191/?site_context=featured_artwork) · [官方下载](https://studio.blender.org/download-source/files/47/47a954682dbd4f064da7e78ad6c2d32f044a3e85/47a954682dbd4f064da7e78ad6c2d32f044a3e85.mp4)
 
 ## 检查已准备的媒体
 
-在仓库根目录运行 `npm run media:check`。脚本按片库逐部、逐集检查本地媒体路径，列出缺失和空文件。所有文件就绪时退出码为 `0`，有缺项时退出码为 `1`。复查文件编码、时长和跳转见[下载和本地验证](#下载和本地验证)。
+在仓库根目录运行 `npm run media:check`。脚本按片库逐部、逐集检查。在线 MP4 用单字节请求检查 `206`、`Content-Range` 和媒体类型，本地片源检查文件是否存在且非空。全部就绪时退出码为 `0`，有异常时退出码为 `1`。复查文件编码、时长和跳转见[下载和本地验证](#下载和本地验证)。
 
 ## 在线片源与后续收集
 
+目前《钢铁之泪》《辛特尔》和《Caminandes》第 2、3 集从上文的 Blender Studio 官方 HTTPS 地址直接在线播放。浏览器的原生播放器按需请求媒体数据，可通过 Range 跳转。目录只保存官方入口，由上游响应临时签名重定向。已在普通原生视频加载模式下实测，添加跨域模式会受首次重定向的 CORS 限制。[接入在线片源 Issue #12](https://github.com/Thirteente/MediaHub/issues/12)
+
+《大雄兔》继续使用本地 1080p 版本。替代在线 MP4 在当前 Chrome 实测发生解码错误，因此目前保留已验证的本地版本。
+
 接入在线来源时，逐部逐集记录可在站内播放的媒体地址或播放接口、出处和授权范围，同时验证站内开播、拖动和移动端兼容性。元数据和官方观看入口用于查找与导流。只有实际可在站内播放的条目才显示站内播放入口。[接入在线片源 Issue #12](https://github.com/Thirteente/MediaHub/issues/12)
 
-- **经典内容**优先从版权方、开放电影项目或档案馆选片。逐部、逐集记录作品和集数、来源页、原始媒体地址、许可与署名、可使用范围和最后校验日期。海报、字幕也按各自的来源和许可核对。
-- **新片和新剧**先收集有明确许可的独立发行内容或官方开放片源。商业平台的影片在取得可用于站内播放的片源后接入。能确认官方观看入口的作品可提供外部链接。
+- **经典内容**优先从版权方、开放电影项目或档案馆选片。已验证 Blender Studio 目录能提供完整开放电影的在线来源。档案馆还需逐条核对在线播放地址和权利说明。逐部、逐集记录作品和集数、来源页、原始媒体地址、许可与署名、可使用范围和最后校验日期。海报、字幕也按各自的来源和许可核对。
+- **新片和新剧**先收集有明确许可的独立发行内容或官方开放片源。商业平台的影片在取得可用于站内播放的片源后接入，目前暂无已验证的近期商业影视片源。能确认官方观看入口的作品可提供外部链接。
 - **元数据**第一版为这几部作品维护本地条目。目录扩大后可用 TMDB 补充海报、简介与分季分集信息，并按其条款署名。站内可播状态由 MediaHub 实际管理的片源决定。[TMDB API FAQ](https://developer.themoviedb.org/docs/faq)
 
 ## 网页阶段验收清单
@@ -91,3 +95,7 @@ ffmpeg -i bbb_sunflower_1080p_30fps_normal.mp4 -map 0:v:0 -map 0:a:0 -c:v copy -
 2026 年 11 月 26 日新增《大雄兔》。1080p 本地文件为 253839659 字节，非零起点的媒体范围请求返回 HTTP `206`。Windows Chrome 157 在 1440、390、320 px 下均完成分类、别名搜索、剧照加载、开播、跳转到中段，以及查看许可和音轨改动。[扩库 Issue](https://github.com/Thirteente/MediaHub/issues/5)
 
 2026 年 11 月 26 日加入《辛特尔》。本地 MP4 为 224702298 字节，与官方下载大小一致，FFmpeg 全片音视频解码通过。局域网媒体地址的非零起点范围请求返回 `206`。Windows Chrome 157 的桌面和 390 px 模拟手机视口通过分类、别名搜索、剧照、播放、跳转到中段和授权链接检查。`npm run media:check` 报告 5/5 就绪，另外用临时片库验证了缺失和空文件的非零退出码。[扩库 Issue #9](https://github.com/Thirteente/MediaHub/issues/9)
+
+### 在线播放验收
+
+2026 年 11 月 27 日，在没有 `media/` 目录的生产预览中，用 Windows Chrome 桌面和 iPhone 模拟视口从搜索结果打开《辛特尔》和《Caminandes》，验证开播、暂停、进度跳转及第 2 集换第 3 集。浏览器只从在线来源取得正片，请求得到 `206`。另测《钢铁之泪》开播和跳转，以及在线片源请求失败时的提示和重试。现有开发机片源检查为四条在线、一条本地全部就绪。iPhone 17 真机尚待复测。[Issue #12](https://github.com/Thirteente/MediaHub/issues/12)

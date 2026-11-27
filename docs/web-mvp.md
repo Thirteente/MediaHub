@@ -16,7 +16,7 @@ MediaHub 的第一版服务同一家庭网络内的手机和 PC。用一部电�
 
 首版页面使用同一套组件与数据。手机竖屏时搜索框、片卡、季与集列表和播放器能在视口内操作。PC 上播放器和详情随内容区伸展，搜索、播放和选集都能用键盘访问。
 
-## 本地片库数据
+## 片库数据
 
 将样本元数据放在 `src/data/catalog.json`。由内容 ID 建索引，搜索只匹配影片和系列条目。页面从同一数据读取显示名称和播放地址。封面作为可选的本地资源，未配置时显示统一的占位样式。首批封面取自 Blender Studio 正片，提取单帧并缩放为 JPEG。电影封面来自《Tears of Steel》约 5:20，系列封面来自《Llamigos》约 0:24，两张均沿用正片的 CC BY 4.0 许可和 Blender Studio 署名。[电影素材](https://studio.blender.org/projects/api/assets/42/?site_context=featured_artwork) · [系列素材](https://studio.blender.org/projects/api/assets/2417/?site_context=featured_artwork)
 
@@ -26,9 +26,9 @@ MediaHub 的第一版服务同一家庭网络内的手机和 PC。用一部电�
 | 电影 | 公共字段和 `media`。电影的作品 ID 同时是播放 ID。 |
 | 系列 | 公共字段和 `seasons`。每季有数字 `number` 和 `episodes`。 |
 | 单集 | `id`、数字 `number`、`title`、`media` 和可选的 `thumbnail`。集号沿用官方编号。 |
-| 媒体 | `url`、`mimeType` 和署名所需的 `credit`、`sourceUrl`、`licenseUrl`，转码或剪辑时可填 `changes`。首批统一为 `video/mp4`，使用同源 `/media/` 路径。 |
+| 媒体 | `url`、`mimeType` 和署名所需的 `credit`、`sourceUrl`、`licenseUrl`，转码或剪辑时可填 `changes`。首批统一为 `video/mp4`，支持稳定 HTTPS 在线地址和同源 `/media/` 路径。 |
 
-| 条目 | 作品 ID | 播放 ID | 服务路径 |
+| 条目 | 作品 ID | 播放 ID | 初版试播路径 |
 | --- | --- | --- | --- |
 | 《Tears of Steel》 | `tears-of-steel` | `tears-of-steel` | `/media/tears-of-steel.mp4` |
 | 《Caminandes》第一季第 2 集 | `caminandes` | `caminandes-02` | `/media/caminandes-02.mp4` |
@@ -46,7 +46,7 @@ MediaHub 的第一版服务同一家庭网络内的手机和 PC。用一部电�
 
 ## 家庭网络运行
 
-1. 初始化 Vite 的 React + TypeScript 工程，保留 `dev`、`build` 和 `preview` 脚本并提交 npm 锁文件。在 `.gitignore` 登记 `public/media/`，再按片源方案准备样本。后续在新环境用 `npm ci` 安装锁定依赖。
+1. 在新环境用 `npm ci` 安装锁定依赖。在线片源可以直接播放。需要本地样片时按片源方案准备，`public/media/` 已加入 Git 忽略规则。
 2. 用 `npm run dev -- --host 0.0.0.0` 启动开发服务。开发电脑打开终端给出的 Local 地址，手机和其他 PC 在同一家庭网络用 Network 地址打开。Windows 开发电脑对家庭专用网络开放实际使用的端口。
 3. 用 `npm run build` 产出 `dist/`，用 `npm run preview -- --host 0.0.0.0` 检查构建产物。Vite 默认会把 `public/media/` 复制到构建目录。家庭日常试用由一台可常开的家庭电脑或 NAS 静态托管 `dist/`，网页和视频使用同一个地址与端口。
 4. 从手机或另一台同网 PC 请求三条 `/media/` 路径。媒体响应应是 `video/mp4`，带 `Range` 的请求应收到 `206 Partial Content`，浏览器能拖到已缓冲区之外。局域网验收先用 HTTP，投屏阶段根据所选协议确认 HTTPS 和接收端的访问要求。

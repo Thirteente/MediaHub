@@ -20,6 +20,7 @@ export function Player({
   title: string
   resumeAt: number
 }) {
+  const online = content.media.url.startsWith('https://')
   const videoRef = useRef<HTMLVideoElement>(null)
   const hasPlayed = useRef(false)
   const lastSave = useRef(0)
@@ -109,14 +110,16 @@ export function Player({
       />
       {playback.state === 'error' && (
         <div className="playback-error">
-          <p role="alert">视频暂时无法播放。请检查媒体文件和网络连接。</p>
+          <p role="alert">
+            {online ? '在线片源暂时无法播放。请检查网络连接后重试。' : '视频暂时无法播放。请检查媒体文件和网络连接。'}
+          </p>
           <button className="button" type="button" onClick={retry}>重试</button>
         </div>
       )}
       <p className="credits">
         {content.media.credit} · <a href={content.media.sourceUrl}>片源</a> ·{' '}
-        <a href={content.media.licenseUrl}>授权协议</a> ·{' '}
-        <a href={content.media.url}>直接打开视频</a>
+        <a href={content.media.licenseUrl}>授权协议</a>
+        {!online && <> · <a href={content.media.url}>直接打开视频</a></>}
         {content.media.changes && ` · ${content.media.changes}`}
       </p>
     </>

@@ -13,7 +13,7 @@
     "backdrop": "/posters/tears-of-steel-backdrop.jpg",
     "artworkCredit": "https://studio.blender.org/projects/api/assets/42/?site_context=featured_artwork",
     "media": {
-      "url": "/media/tears-of-steel.mp4",
+      "url": "https://studio.blender.org/download-source/files/0d/0d4beb382f57cec10fa3e54c13c5c02e24e53f02/0d4beb382f57cec10fa3e54c13c5c02e24e53f02.mp4",
       "mimeType": "video/mp4",
       "credit": "Blender Studio",
       "sourceUrl": "https://studio.blender.org/projects/api/assets/42/?site_context=featured_artwork",
@@ -41,7 +41,7 @@
             "title": "Gran Dillama",
             "thumbnail": "/posters/caminandes-02.jpg",
             "media": {
-              "url": "/media/caminandes-02.mp4",
+              "url": "https://studio.blender.org/download-source/files/ff/ff0cd0946c500c32da78c8f3101b02eb670df72c/ff0cd0946c500c32da78c8f3101b02eb670df72c.mp4",
               "mimeType": "video/mp4",
               "credit": "Blender Studio",
               "sourceUrl": "https://studio.blender.org/projects/api/assets/2363/?site_context=featured_artwork",
@@ -54,7 +54,7 @@
             "title": "Llamigos",
             "thumbnail": "/posters/caminandes.jpg",
             "media": {
-              "url": "/media/caminandes-03.mp4",
+              "url": "https://studio.blender.org/download-source/files/26/263f328078fbebd508a0d3262f4fb4da5f16439f/263f328078fbebd508a0d3262f4fb4da5f16439f-1080p.mp4",
               "mimeType": "video/mp4",
               "credit": "Blender Studio",
               "sourceUrl": "https://studio.blender.org/projects/api/assets/2417/?site_context=featured_artwork",
@@ -101,7 +101,7 @@
     "backdrop": "/posters/sintel-backdrop.jpg",
     "artworkCredit": "https://studio.blender.org/projects/api/assets/1191/?site_context=featured_artwork",
     "media": {
-      "url": "/media/sintel.mp4",
+      "url": "https://studio.blender.org/download-source/files/47/47a954682dbd4f064da7e78ad6c2d32f044a3e85/47a954682dbd4f064da7e78ad6c2d32f044a3e85.mp4",
       "mimeType": "video/mp4",
       "credit": "Blender Studio",
       "sourceUrl": "https://studio.blender.org/projects/api/assets/1191/?site_context=featured_artwork",
